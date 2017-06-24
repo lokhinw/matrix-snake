@@ -39,14 +39,29 @@ void setup() {
   delay(1000);
   printByte(fill);
   delay(1000);
-  printByte(one);
   level = 1;
+  printByte(one);
 }
 
 void loop() {
   joyVal = analogRead(joyX);
-  Serial.println(joyVal);
-
+  if (joyVal <= 341) {
+    if (!(level >= 3)) {
+      level +=1;
+    }
+  } else if (joyVal >= 682) {
+     if (!(level <= 1)) {
+      level -=1;
+    }
+  }
+  if (level == 1) {
+    printByte(one);  
+  } else if (level == 2) {
+    printByte(two);
+  } else if (level == 3) {
+    printByte(three);
+  }
+  delay(200);
 }
 
 void printByte(byte character [])
